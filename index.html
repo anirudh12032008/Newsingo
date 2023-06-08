@@ -8,6 +8,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
+<script>
+
+</script>
 
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -81,14 +84,9 @@
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>
   <script>
-    // let articlesPerPage = 10;
-    // let totalPages;
     console.log("Hey I am javascript")
     console.log(window.location.search)
-
-
-    //   if (window.location.search.startsWith('?')) {
-    // query = search + window.location.search.split("?")[1].split("&")[0].split("=")[1];
+    let query = "top-headlines?category=general&lang=en"
     if (window.location.search.startsWith('?')) {
       if (window.location.search.startsWith('?q=')) {
         const queryParam = window.location.search.split('=')[1];
@@ -96,26 +94,18 @@
       } else if (window.location.search.startsWith('?top-headlines')) {
         query = window.location.search.slice(1);
       }
-      // } else if (window.location.search.startsWith('top-headlines')) {
-      //   query = window.location.search;
     } else {
-      // Handle other cases if needed
     }
 
 
+    // Your program logic continues here
 
-
-    // let querypart1 = window.location.search.split("?")[1].split("&")[0].split("=")[1];
-    // let querypart2 =
-    // let page = parseInt(window.location.search.split("?")[1].split("&")[1].split("=")[1]);
     console.log(query)
     const fetchNews = async (query) => {
       let a = await fetch(`https://gnews.io/api/v4/${query}&apikey=59514fabac57b01a14e48c51b4dcf96b`)
       let r = await a.json()
       console.log(r)
-      // let rquery = query.replace("+", " ")
       function setTextFromQuery(query) {
-        let text = '';
 
         if (query.startsWith('top-headlines?')) {
           const categoryParam = 'category=';
@@ -131,11 +121,10 @@
 
         return text;
       }
+      let text = '';
 
       queryText.innerHTML = setTextFromQuery(query).toUpperCase();
       queryResults.innerHTML = r.totalArticles
-      // totalPages = Math.round(r.totalResults / articlesPerPage)
-      // max.innerHTML = totalPages
       pre.href = `/?q=${query}`
       next.href = `/?q=${query}`
       one.href = `/?q=${query}`
@@ -161,6 +150,7 @@
     }
 
     fetchNews(query)
+
 
   </script>
 </body>
