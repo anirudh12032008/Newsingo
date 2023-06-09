@@ -11,19 +11,405 @@
 <script>
 
 </script>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
+
+  :root {
+    --main-green: #79dd09;
+    --main-green-rgb-015: rgba(121, 221, 9, 0.1);
+    --main-yellow: #bdbb49;
+    --main-yellow-rgb-015: rgba(189, 187, 73, 0.1);
+    --main-red: #bd150b;
+    --main-red-rgb-015: rgba(189, 21, 11, 0.1);
+    --main-blue: #0076bd;
+    --main-blue-rgb-015: rgba(0, 118, 189, 0.1);
+  }
+
+  /* This pen */
+  body {
+    background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
+    font-family: "Baloo 2", cursive;
+    color: #ffffff;
+    font-size: 16px;
+    text-rendering: optimizeLegibility;
+    font-weight: initial;
+  }
+
+  .navbar-nav1 {
+    --bs-nav-link-padding-x: 0;
+    --bs-nav-link-padding-y: 0.5rem;
+    --bs-nav-link-font-weight: ;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+
+  .dark {
+    background: #110f16;
+  }
+
+  .light {
+    background: #f3f5f7;
+  }
+
+  a,
+  a:hover {
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+  }
+
+  #pageHeaderTitle {
+    margin: 2rem 0;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2.5rem;
+  }
+
+  /* Cards */
+  .postcard {
+    flex-wrap: wrap;
+    display: flex;
+    box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+    border-radius: 10px;
+    margin: 0 0 2rem 0;
+    overflow: hidden;
+    position: relative;
+    color: #ffffff;
+  }
+
+  .postcard.dark {
+    background-color: #18151f;
+  }
+
+  .postcard.light {
+    background-color: #e1e5ea;
+  }
+
+  .postcard .t-dark {
+    color: #18151f;
+  }
+
+  .postcard a {
+    color: inherit;
+  }
+
+  .postcard h1,
+  .postcard .h1 {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .postcard .small {
+    font-size: 80%;
+  }
+
+  .postcard .postcard__title {
+    font-size: 1.75rem;
+  }
+
+  .postcard .postcard__img {
+    max-height: 180px;
+    width: 100%;
+    object-fit: cover;
+    position: relative;
+  }
+
+  .postcard .postcard__img_link {
+    display: contents;
+  }
+
+  .postcard .postcard__bar {
+    width: 50px;
+    height: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #424242;
+    transition: width 0.2s ease;
+  }
+
+  .postcard .postcard__text {
+    padding: 1.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .postcard .postcard__preview-txt {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify;
+    height: 100%;
+  }
+
+  .postcard .postcard__tagbox {
+    display: flex;
+    flex-flow: row wrap;
+    font-size: 14px;
+    margin: 20px 0 0 0;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .postcard .postcard__tagbox .tag__item {
+    display: inline-block;
+    background: rgba(83, 83, 83, 0.4);
+    border-radius: 3px;
+    padding: 2.5px 10px;
+    margin: 0 5px 5px 0;
+    cursor: default;
+    user-select: none;
+    transition: background-color 0.3s;
+  }
+
+  .postcard .postcard__tagbox .tag__item:hover {
+    background: rgba(83, 83, 83, 0.8);
+  }
+
+  .postcard:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(-70deg, #424242, transparent 50%);
+    opacity: 1;
+    border-radius: 10px;
+  }
+
+  .postcard:hover .postcard__bar {
+    width: 100px;
+  }
+
+  @media screen and (min-width: 769px) {
+    .postcard {
+      flex-wrap: inherit;
+    }
+
+    .postcard .postcard__title {
+      font-size: 2rem;
+    }
+
+    .postcard .postcard__tagbox {
+      justify-content: start;
+    }
+
+    .postcard .postcard__img {
+      max-width: 300px;
+      max-height: 100%;
+      transition: transform 0.3s ease;
+    }
+
+    .postcard .postcard__text {
+      padding: 3rem;
+      width: 100%;
+    }
+
+    .media.postcard__text:before {
+      content: "";
+      position: absolute;
+      display: block;
+      background: #18151f;
+      top: -20%;
+      height: 130%;
+      width: 55px;
+    }
+
+    .postcard:hover .postcard__img {
+      transform: scale(1.1);
+    }
+
+    .postcard:nth-child(2n+1) {
+      flex-direction: row;
+    }
+
+    .postcard:nth-child(2n+0) {
+      flex-direction: row-reverse;
+    }
+
+    .postcard:nth-child(2n+1) .postcard__text::before {
+      left: -12px !important;
+      transform: rotate(4deg);
+    }
+
+    .postcard:nth-child(2n+0) .postcard__text::before {
+      right: -12px !important;
+      transform: rotate(-4deg);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .postcard .postcard__text {
+      padding: 2rem 3.5rem;
+    }
+
+    .postcard .postcard__text:before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: -20%;
+      height: 130%;
+      width: 55px;
+    }
+
+    .postcard.dark .postcard__text:before {
+      background: #18151f;
+    }
+
+    .postcard.light .postcard__text:before {
+      background: #e1e5ea;
+    }
+  }
+
+  /* COLORS */
+  .postcard .postcard__tagbox .green.play:hover {
+    background: var(--main-green);
+    color: black;
+  }
+
+  .green .postcard__title:hover {
+    color: var(--main-green);
+  }
+
+  .green .postcard__bar {
+    background-color: var(--main-green);
+  }
+
+  .green:before {
+    background-image: linear-gradient(-30deg, var(--main-green-rgb-015), transparent 50%);
+  }
+
+  .green:nth-child(2n)::before {
+    background-image: linear-gradient(30deg, var(--main-green-rgb-015), transparent 50%);
+  }
+
+  .postcard .postcard__tagbox .blue.play:hover {
+    background: var(--main-blue);
+  }
+
+  .blue .postcard__title:hover {
+    color: var(--main-blue);
+  }
+
+  .blue .postcard__bar {
+    background-color: var(--main-blue);
+  }
+
+  .blue:before {
+    background-image: linear-gradient(-30deg, var(--main-blue-rgb-015), transparent 50%);
+  }
+
+  .blue:nth-child(2n)::before {
+    background-image: linear-gradient(30deg, var(--main-blue-rgb-015), transparent 50%);
+  }
+
+  .postcard .postcard__tagbox .red.play:hover {
+    background: var(--main-red);
+  }
+
+  .red .postcard__title:hover {
+    color: var(--main-red);
+  }
+
+  .red .postcard__bar {
+    background-color: var(--main-red);
+  }
+
+  .red:before {
+    background-image: linear-gradient(-30deg, var(--main-red-rgb-015), transparent 50%);
+  }
+
+  .red:nth-child(2n)::before {
+    background-image: linear-gradient(30deg, var(--main-red-rgb-015), transparent 50%);
+  }
+
+  .postcard .postcard__tagbox .yellow.play:hover {
+    background: var(--main-yellow);
+    color: black;
+  }
+
+  .yellow .postcard__title:hover {
+    color: var(--main-yellow);
+  }
+
+  .yellow .postcard__bar {
+    background-color: var(--main-yellow);
+  }
+
+  .yellow:before {
+    background-image: linear-gradient(-30deg, var(--main-yellow-rgb-015), transparent 50%);
+  }
+
+  .yellow:nth-child(2n)::before {
+    background-image: linear-gradient(30deg, var(--main-yellow-rgb-015), transparent 50%);
+  }
+
+  @media screen and (min-width: 769px) {
+    .green:before {
+      background-image: linear-gradient(-80deg, var(--main-green-rgb-015), transparent 50%);
+    }
+
+    .green:nth-child(2n)::before {
+      background-image: linear-gradient(80deg, var(--main-green-rgb-015), transparent 50%);
+    }
+
+    .blue:before {
+      background-image: linear-gradient(-80deg, var(--main-blue-rgb-015), transparent 50%);
+    }
+
+    .blue:nth-child(2n)::before {
+      background-image: linear-gradient(80deg, var(--main-blue-rgb-015), transparent 50%);
+    }
+
+    .red:before {
+      background-image: linear-gradient(-80deg, var(--main-red-rgb-015), transparent 50%);
+    }
+
+    .red:nth-child(2n)::before {
+      background-image: linear-gradient(80deg, var(--main-red-rgb-015), transparent 50%);
+    }
+
+    .yellow:before {
+      background-image: linear-gradient(-80deg, var(--main-yellow-rgb-015), transparent 50%);
+    }
+
+    .yellow:nth-child(2n)::before {
+      background-image: linear-gradient(80deg, var(--main-yellow-rgb-015), transparent 50%);
+    }
+
+  }
+
+  @keyframes slideInRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+</style>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class=" navbar navbar-dark navbar-expand-lg bg-body-tertiary"
+    style="background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%); ">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Newsingo</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/?top-headlines?category=general&lang=en">Home</a>
+            <a class="nav-link active" aria-current="page"
+              href="/?top-headlines?category=general&lang=en&country=in">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/?top-headlines?category=sports&lang=en">Sports</a>
@@ -50,7 +436,7 @@
         <form class="d-flex" role="search">
           <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
           <input class="form-control me-2" type="hidden" value="1" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <button class="btn btn-dark" type="submit">Search</button>
         </form>
       </div>
     </div>
@@ -60,7 +446,7 @@
     <h1 class="text-center my-2 "><span id="queryText"></span> - Newsingo News </h1>
     <div id="content" class="row">
       <div class="d-flex justify-content-center">
-        <img width="23" src="https://samherbert.net/svg-loaders/svg-loaders/oval.svg" style="filter: invert(1)">
+
       </div>
     </div>
 
@@ -122,6 +508,7 @@
         return text;
       }
       let text = '';
+      const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
       queryText.innerHTML = setTextFromQuery(query).toUpperCase();
       queryResults.innerHTML = r.totalArticles
@@ -132,25 +519,81 @@
       three.href = `/?q=${query}`
       ten.href = `/?q=${query}`
       let str = ""
-      for (let item of r.articles) {
+      for (let i = 0; i < r.articles.length; i++) {
+
+
+        let item = r.articles[i];
+
         let date = new Date(item.publishedAt).toLocaleDateString()
-        str = str + `
-              <div class="card m-2" style="width: 18rem;">
-      <img src="${item.image}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">${item.title}</h5>
-        <span class="fw-bold">Published </span> : ${date}
-        <p class="card-text">${item.description}</p>
-        <a target="_blank" href="${item.url}" class="btn btn-primary">Read More...</a>
-      </div>
-    </div>
+        setTimeout(() => {
+
+
+          const articleHTML = `
+    <article class="postcard article dark blue" style="
+    animation: slideInRight 3s ease-in;
+    min-height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    ">
+			<a class="postcard__img_link" href="${item.url}">
+				<img class="postcard__img" src="${item.image}" alt="Image Title" />
+			</a>
+			<div class="postcard__text">
+				<h1 class="postcard__title blue"><a href="#">${item.title}</a></h1>
+				<div class="postcard__subtitle small">
+					<time datetime="2020-05-25 12:00:00">
+						<i class="fas fa-calendar-alt mr-2"></i>${date}
+					</time>
+				</div>
+				<div class="postcard__bar"></div>
+				<div class="postcard__preview-txt">${item.description}</div>
+			</div>
+		</article>
+
           `
+          content.insertAdjacentHTML("beforeend", articleHTML);
+        }, i * 1500);
+
       }
-      content.innerHTML = str;
+      // content.innerHTML = str;
     }
 
     fetchNews(query)
 
+
+
+
+    window.addEventListener('DOMContentLoaded', function () {
+      // Get all the articles
+      const articles = document.getElementsByClassName('article');
+
+      // Function to check if an element is in the viewport
+      function isElementInViewport(element) {
+        var rect = element.getBoundingClientRect();
+        return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+      }
+
+      // Function to handle the animation
+      function handleArticleAnimation() {
+        for (let i = 0; i < r.articles.length; i++) {
+          const article = articles[i];
+          if (isElementInViewport(article) && !article.classList.contains('animated')) {
+            article.classList.add('animated');
+          }
+        }
+      }
+
+      // Add scroll event listener to trigger the animation
+      window.addEventListener('scroll', handleArticleAnimation);
+
+      // Initial check for articles in view on page load
+      handleArticleAnimation();
+    });
 
   </script>
 </body>
