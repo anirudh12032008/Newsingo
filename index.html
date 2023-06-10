@@ -37,6 +37,25 @@
     font-weight: initial;
   }
 
+  .article {
+    opacity: 0;
+    /* transform: translateX(100%); */
+    min-height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  .animated-article.animate {
+    animation: slideInRight 2.5s ease-in;
+    min-height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    /* transform: translateX(0); */
+    opacity: 1;
+  }
+
+
+
   .navbar-nav1 {
     --bs-nav-link-padding-x: 0;
     --bs-nav-link-padding-y: 0.5rem;
@@ -185,6 +204,47 @@
 
   .postcard:hover .postcard__bar {
     width: 100px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .postcard {
+      flex-wrap: wrap;
+    }
+
+    .postcard .postcard__img {
+      max-height: none;
+    }
+
+    .postcard .postcard__text {
+      padding: 1.5rem;
+      width: 100%;
+    }
+
+    .postcard .postcard__text:before {
+      content: none;
+    }
+
+    .postcard:nth-child(2n+1) {
+      flex-direction: column;
+    }
+
+    .postcard:nth-child(2n+0) {
+      flex-direction: column;
+    }
+
+    .postcard:hover .postcard__img {
+      transform: none;
+    }
+
+    .postcard:nth-child(2n+1) .postcard__text::before {
+      left: 0 !important;
+      transform: none;
+    }
+
+    .postcard:nth-child(2n+0) .postcard__text::before {
+      right: 0 !important;
+      transform: none;
+    }
   }
 
   @media screen and (min-width: 769px) {
@@ -531,16 +591,12 @@
         let item = r.articles[i];
 
         let date = new Date(item.publishedAt).toLocaleDateString()
-        setTimeout(() => {
 
 
-          const articleHTML = `
-    <article class="postcard article dark blue" style="
-    animation: slideInRight 2.5s ease-in;
-    min-height: 100%;
-    display: flex;
-    flex-wrap: nowrap;
-    ">
+
+        const articleHTML = `
+    <article id="${i}" class="postcard article animated-article dark blue"
+    >
 			<a class="postcard__img_link" href="${item.url}">
 				<img class="postcard__img" src="${item.image}" alt="Image Title" />
 			</a>
@@ -557,8 +613,8 @@
 		</article>
 
           `
-          content.insertAdjacentHTML("beforeend", articleHTML);
-        }, i * 1000);
+        content.insertAdjacentHTML("beforeend", articleHTML);
+
 
       }
       // content.innerHTML = str;
@@ -569,37 +625,36 @@
 
 
 
-    window.addEventListener('DOMContentLoaded', function () {
-      // Get all the articles
-      const articles = document.getElementsByClassName('article');
+    // Get all the articles
+    const articles1 = document.getElementsByClassName('article');
+    console.log(articles1)
 
-      // Function to check if an element is in the viewport
-      function isElementInViewport(element) {
-        var rect = element.getBoundingClientRect();
-        return (
-          rect.top >= 0 &&
-          rect.left >= 0 &&
-          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-      }
+    // Get all the elements with the class name "article"
+    var elements = document.getElementsByClassName("article");
+    // console.log(elements);
 
-      // Function to handle the animation
-      function handleArticleAnimation() {
-        for (let i = 0; i < articles.length; i++) {
-          const article = articles[i];
-          if (isElementInViewport(article) && !article.classList.contains('animated')) {
-            article.classList.add('animated');
-          }
+    // Create a new Intersection Observer
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
         }
-      }
-
-      // Add scroll event listener to trigger the animation
-      window.addEventListener('scroll', handleArticleAnimation);
-
-      // Initial check for articles in view on page load
-      handleArticleAnimation();
+      });
     });
+
+    // Observe each element
+    function runLoop() {
+
+
+      for (var i = 0; i < elements.length; i++) {
+        // console.log(i);
+        observer.observe(elements[i]);
+        setTimeout(runLoop, 1000);
+      }
+    }
+
+    // Start the loop after a delay of 1 second
+    setTimeout(runLoop, 1000);
 
   </script>
 </body>
